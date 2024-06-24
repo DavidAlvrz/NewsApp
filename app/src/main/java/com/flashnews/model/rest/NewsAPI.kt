@@ -15,7 +15,7 @@ interface NewsAPI {
         @Query("q") q: String = "*",
         @Query("apiKey") apiKey: String = API_KEY,
         @Query("page") pageNumber: Int = 1,
-        @Query("pageSize") pageSize: Int = 10,
+        @Query("pageSize") pageSize: Int = 20,
         @Query("sortBy") sortBy: String = "publishedAt",
         @Query("language") language: String = "es"
     ): Response<NewsResponse>
