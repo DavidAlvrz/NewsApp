@@ -59,4 +59,7 @@ dependencies {
     //Corrutinas
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
+
+    //Picasso
+    implementation ("com.squareup.picasso:picasso:2.71828")
 }
