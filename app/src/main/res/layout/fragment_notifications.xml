@@ -18,7 +18,6 @@
         android:layout_centerInParent="true"
         android:text="No hay artículos guardados"
         android:textSize="18sp"
-        android:textColor="@android:color/white"
         android:visibility="gone" />
 
 </RelativeLayout>
