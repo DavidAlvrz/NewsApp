@@ -7,7 +7,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.flashnews.model.database.ArticleDatabase
 import com.flashnews.model.dto.Article
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 open class CommonViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -26,4 +28,10 @@ open class CommonViewModel(application: Application) : AndroidViewModel(applicat
             articleDao.deleteArticle(article)
         }
     }
+
+    suspend fun isArticleStored(article: Article): Boolean {
+        val allArticles = articleDao.getArticles()
+        return allArticles.any { it.id == article.id }
+    }
+
 }

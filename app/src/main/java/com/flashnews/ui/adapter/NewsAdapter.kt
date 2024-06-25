@@ -16,7 +16,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.flashnews.R
 import com.flashnews.model.dto.Article
 import com.flashnews.ui.common.CommonViewModel
+import com.flashnews.ui.home.NotificationsViewModel
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class NewsAdapter(private val context: Context?, private val viewModel: CommonViewModel) : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
 
@@ -64,6 +68,19 @@ class NewsAdapter(private val context: Context?, private val viewModel: CommonVi
         val popup = PopupMenu(context!!, view)
         val inflater: MenuInflater = popup.menuInflater
         inflater.inflate(R.menu.context_menu, popup.menu)
+
+        //Show delete option only at stored articles fragment
+        if (viewModel !is NotificationsViewModel) {
+            popup.menu.findItem(R.id.action_delete).isVisible = false
+        }
+
+        CoroutineScope(Dispatchers.Main).launch {
+            val isStored = viewModel.isArticleStored(article)
+            if (isStored) {
+                popup.menu.findItem(R.id.action_save).isVisible = false
+            }
+        }
+
         popup.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.action_visit -> {
