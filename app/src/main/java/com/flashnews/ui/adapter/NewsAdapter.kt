@@ -18,7 +18,7 @@ import com.flashnews.model.dto.Article
 import com.flashnews.ui.common.CommonViewModel
 import com.squareup.picasso.Picasso
 
-class NewsAdapter(private val context: Context?, private val commonViewModel: CommonViewModel) : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
+class NewsAdapter(private val context: Context?, private val viewModel: CommonViewModel) : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
 
     inner class ArticleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val ivArticleImage: ImageView = itemView.findViewById(R.id.ivPhoto)
@@ -72,11 +72,11 @@ class NewsAdapter(private val context: Context?, private val commonViewModel: Co
                     true
                 }
                 R.id.action_save -> {
-                    commonViewModel.saveArticle(article)
+                    viewModel.saveArticle(article)
                     true
                 }
                 R.id.action_delete -> {
-                    // Lógica para eliminar el artículo de la base de datos
+                    viewModel.deleteArticle(article)
                     true
                 }
                 else -> false

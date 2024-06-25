@@ -17,8 +17,6 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var homeViewModel: HomeViewModel
-    private lateinit var commonViewModel: CommonViewModel
-
     private lateinit var newsAdapter: NewsAdapter
 
     override fun onCreateView(
@@ -26,7 +24,6 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        commonViewModel = ViewModelProvider(this).get(CommonViewModel::class.java)
         homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
@@ -43,7 +40,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        newsAdapter = NewsAdapter(context,commonViewModel)
+        newsAdapter = NewsAdapter(context,homeViewModel)
         binding.recyclerView.apply {
             adapter = newsAdapter
             layoutManager = LinearLayoutManager(context)

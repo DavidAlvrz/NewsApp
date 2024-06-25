@@ -17,7 +17,6 @@ class NotificationsFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var notificationsViewModel: NotificationsViewModel
-    private lateinit var commonViewModel: CommonViewModel
 
     private lateinit var newsAdapter: NewsAdapter
 
@@ -26,7 +25,6 @@ class NotificationsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        commonViewModel = ViewModelProvider(this).get(CommonViewModel::class.java)
         notificationsViewModel = ViewModelProvider(this).get(NotificationsViewModel::class.java)
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
@@ -43,7 +41,7 @@ class NotificationsFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        newsAdapter = NewsAdapter(context,commonViewModel)
+        newsAdapter = NewsAdapter(context,notificationsViewModel)
         binding.recyclerView.apply {
             adapter = newsAdapter
             layoutManager = LinearLayoutManager(context)
@@ -53,5 +51,10 @@ class NotificationsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onResume() {
+        super.onResume()
+        notificationsViewModel.loadSavedArticles()
     }
 }

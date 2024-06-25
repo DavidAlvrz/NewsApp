@@ -19,14 +19,12 @@ class DashboardFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var searchViewModel: DashboardViewModel
-    private lateinit var commonViewModel: CommonViewModel
     private lateinit var newsAdapter: NewsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        commonViewModel = ViewModelProvider(this).get(CommonViewModel::class.java)
         searchViewModel = ViewModelProvider(this).get(DashboardViewModel::class.java)
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         return binding.root
@@ -40,7 +38,7 @@ class DashboardFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        newsAdapter = NewsAdapter(requireContext(),commonViewModel)
+        newsAdapter = NewsAdapter(requireContext(),searchViewModel)
         binding.recyclerView.apply {
             adapter = newsAdapter
             layoutManager = LinearLayoutManager(context)

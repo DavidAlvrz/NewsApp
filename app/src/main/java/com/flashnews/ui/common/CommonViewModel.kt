@@ -2,22 +2,26 @@ package com.flashnews.ui.common
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.flashnews.model.database.ArticleDatabase
 import com.flashnews.model.dto.Article
 import kotlinx.coroutines.launch
 
-class CommonViewModel(application: Application) : AndroidViewModel(application) {
+open class CommonViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val articleDao = ArticleDatabase.invoke(application).getArticleDao()
+    protected val articleDao = ArticleDatabase.invoke(application).getArticleDao()
+    protected val _articles = MutableLiveData<List<Article>>()
+    val articles: LiveData<List<Article>> get() = _articles
 
-    fun saveArticle(article: Article) {
+    open fun saveArticle(article: Article) {
         viewModelScope.launch {
             articleDao.saveArticle(article)
         }
     }
 
-    fun deleteArticle(article: Article) {
+    open fun deleteArticle(article: Article) {
         viewModelScope.launch {
             articleDao.deleteArticle(article)
         }
