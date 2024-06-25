@@ -17,7 +17,7 @@ class DashboardViewModel(application: Application) : CommonViewModel(application
     fun searchNews(query: String) {
         viewModelScope.launch {
             val response = withContext(Dispatchers.IO) {
-                Retrofit.api.getHomeNews(q = query).body()
+                Retrofit.api.getHomeNews(q = query, pageSize = 20).body()
             }
             _articles.value = response?.articles
         }
