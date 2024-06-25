@@ -47,7 +47,7 @@ class DashboardFragment : Fragment() {
     }
 
     private fun setupSearchView() {
-        binding.searchView.queryHint = "Buscar noticias..."
+        binding.searchView.queryHint = "Titulares, medios, palabras clave..."
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 query?.let {
@@ -61,21 +61,6 @@ class DashboardFragment : Fragment() {
                 return false
             }
         })
-
-        binding.searchView.setOnQueryTextFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
-                binding.searchTitle.visibility = View.GONE
-                val params = binding.searchView.layoutParams as LinearLayout.LayoutParams
-                params.width = LinearLayout.LayoutParams.MATCH_PARENT
-                binding.searchView.layoutParams = params
-            } else {
-                binding.searchTitle.visibility = View.VISIBLE
-                val params = binding.searchView.layoutParams as LinearLayout.LayoutParams
-                params.width = 0
-                params.weight = 1f
-                binding.searchView.layoutParams = params
-            }
-        }
     }
 
     override fun onDestroyView() {
