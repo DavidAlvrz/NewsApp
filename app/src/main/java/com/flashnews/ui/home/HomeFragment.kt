@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.flashnews.databinding.FragmentHomeBinding
 import com.flashnews.ui.adapter.NewsAdapter
+import com.flashnews.ui.common.CommonViewModel
 
 class HomeFragment : Fragment() {
 
@@ -16,6 +17,8 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var homeViewModel: HomeViewModel
+    private lateinit var commonViewModel: CommonViewModel
+
     private lateinit var newsAdapter: NewsAdapter
 
     override fun onCreateView(
@@ -23,6 +26,7 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        commonViewModel = ViewModelProvider(this).get(CommonViewModel::class.java)
         homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
@@ -39,7 +43,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        newsAdapter = NewsAdapter(context)
+        newsAdapter = NewsAdapter(context,commonViewModel)
         binding.recyclerView.apply {
             adapter = newsAdapter
             layoutManager = LinearLayoutManager(context)

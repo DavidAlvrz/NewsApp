@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.flashnews.databinding.FragmentDashboardBinding
 import com.flashnews.ui.adapter.NewsAdapter
+import com.flashnews.ui.common.CommonViewModel
 import com.flashnews.ui.home.DashboardViewModel
 
 class DashboardFragment : Fragment() {
@@ -18,12 +19,14 @@ class DashboardFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var searchViewModel: DashboardViewModel
+    private lateinit var commonViewModel: CommonViewModel
     private lateinit var newsAdapter: NewsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        commonViewModel = ViewModelProvider(this).get(CommonViewModel::class.java)
         searchViewModel = ViewModelProvider(this).get(DashboardViewModel::class.java)
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         return binding.root
@@ -37,13 +40,12 @@ class DashboardFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        newsAdapter = NewsAdapter(requireContext())
+        newsAdapter = NewsAdapter(requireContext(),commonViewModel)
         binding.recyclerView.apply {
             adapter = newsAdapter
             layoutManager = LinearLayoutManager(context)
         }
     }
-
 
     private fun setupSearchView() {
         binding.searchView.queryHint = "Buscar noticias..."
