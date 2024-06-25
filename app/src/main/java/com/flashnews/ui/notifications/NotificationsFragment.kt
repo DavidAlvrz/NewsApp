@@ -8,12 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.flashnews.databinding.FragmentHomeBinding
+import com.flashnews.databinding.FragmentNotificationsBinding
 import com.flashnews.ui.adapter.NewsAdapter
 import com.flashnews.ui.common.CommonViewModel
 
 class NotificationsFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentNotificationsBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var notificationsViewModel: NotificationsViewModel
@@ -26,7 +27,7 @@ class NotificationsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         notificationsViewModel = ViewModelProvider(this).get(NotificationsViewModel::class.java)
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -35,9 +36,17 @@ class NotificationsFragment : Fragment() {
 
         setupRecyclerView()
 
-        notificationsViewModel.articles.observe(viewLifecycleOwner, { articles ->
-            newsAdapter.differ.submitList(articles)
-        })
+        notificationsViewModel.articles.observe(viewLifecycleOwner) { articles ->
+            if (articles.isNullOrEmpty()) {
+                binding.recyclerView.visibility = View.GONE
+                binding.tvEmpty.visibility = View.VISIBLE
+            } else {
+                binding.recyclerView.visibility = View.VISIBLE
+                binding.tvEmpty.visibility = View.GONE
+                newsAdapter.differ.submitList(articles)
+            }
+
+        }
     }
 
     private fun setupRecyclerView() {

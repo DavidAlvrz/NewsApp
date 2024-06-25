@@ -49,7 +49,7 @@ class HomeViewModel(application: Application) : CommonViewModel(application){
                 content = "The gaming industry is booming with the release of the latest titles...",
                 description = "Latest gaming trends in 2024.",
                 publishedAt = "2024-06-10T15:30:00Z",
-                source = Source(id = "2", name = "ReadWrite"),
+                source = Source(id = "2", name = "ReadWrite") ,
                 title = "Gaming Industry Trends in 2024",
                 url = "https://readwrite.com/gaming-industry-trends-2024",
                 urlToImage = "https://readwrite.com/wp-content/uploads/2024/06/ea85a934-c8fc-4d65-9279-ff85bb79fbae.webp"
