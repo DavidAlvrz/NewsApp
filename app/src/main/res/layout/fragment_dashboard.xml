@@ -6,11 +6,31 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/searchView"
+    <LinearLayout
+        android:id="@+id/searchContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:queryHint="Buscar noticias..." />
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingBottom="8dp">
+
+        <TextView
+            android:id="@+id/searchTitle"
+            android:layout_width="205dp"
+            android:layout_height="wrap_content"
+            android:paddingEnd="8dp"
+            android:text="Buscar noticias"
+            android:textAlignment="textEnd"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:queryHint="Buscar noticias..." />
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

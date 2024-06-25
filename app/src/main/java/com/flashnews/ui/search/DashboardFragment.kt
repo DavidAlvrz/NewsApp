@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -56,10 +57,25 @@ class DashboardFragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                //Do nothing
-                return false;
+                // Do nothing
+                return false
             }
         })
+
+        binding.searchView.setOnQueryTextFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                binding.searchTitle.visibility = View.GONE
+                val params = binding.searchView.layoutParams as LinearLayout.LayoutParams
+                params.width = LinearLayout.LayoutParams.MATCH_PARENT
+                binding.searchView.layoutParams = params
+            } else {
+                binding.searchTitle.visibility = View.VISIBLE
+                val params = binding.searchView.layoutParams as LinearLayout.LayoutParams
+                params.width = 0
+                params.weight = 1f
+                binding.searchView.layoutParams = params
+            }
+        }
     }
 
     override fun onDestroyView() {
