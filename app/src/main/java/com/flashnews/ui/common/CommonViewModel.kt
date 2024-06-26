@@ -31,7 +31,7 @@ open class CommonViewModel(application: Application) : AndroidViewModel(applicat
 
     suspend fun isArticleStored(article: Article): Boolean {
         val allArticles = articleDao.getArticles()
-        return allArticles.any { it.id == article.id }
+        return allArticles.any { it.url == article.url }
     }
 
 }
